@@ -12,13 +12,21 @@ object FragmentMockMain extends App {
   // for the ning client
   val httpClient = HttpClient.client
 
+  val f1 = """fragment-1
+             |fragment-1
+             """".trim
+
+  val f2 = """fragment-2
+             |fragment-2
+             """".trim
+
   val pathHandler = Handlers.path()
     .addExactPath("/status", (exchange: HttpServerExchange) => {
     exchange.dispatch(StaticRoutesHandlers.pureHandler)
   }).addExactPath("/fragment-1", (exchange: HttpServerExchange) => {
-    exchange.dispatch(StaticRoutesHandlers.textHandler("fragment-1"))
+    exchange.dispatch(StaticRoutesHandlers.textHandler(f1))
   }).addExactPath("/fragment-2", (exchange: HttpServerExchange) => {
-    exchange.dispatch(StaticRoutesHandlers.textHandler("fragmetn-2"))
+    exchange.dispatch(StaticRoutesHandlers.textHandler(f2))
   })
 
   val server = Undertow.builder

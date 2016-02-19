@@ -23,13 +23,13 @@ object StaticRoutesHandlers {
   val httpClient = HttpClient.client
 
   val piperHandler = new HttpHandler {
+
+    val sampleTemplate = BeardTemplateService.compiledTemplate("sample3")
+
+    val parsedTemplate = TemplateParser.parse(sampleTemplate)
     
     override def handleRequest(exchange: HttpServerExchange) = {
-      
-      val sampleTemplate = BeardTemplateService.compiledTemplate("sample3")
-      
-      val parsedTemplate = TemplateParser.parse(sampleTemplate)
-      
+
       // start executing requests in parallel
       val streams = parsedTemplate.context.uriMap.map { case (id, url) =>
         val stream = ReplaySubject[ByteBuffer]()

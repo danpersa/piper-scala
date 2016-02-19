@@ -42,3 +42,41 @@ Running 30s test @ http://localhost:8080/index
   Socket errors: connect 0, read 33, write 2, timeout 0
 Requests/sec:    272.88
 Transfer/sec:    460.53KB
+
+
+
+scala first run
+wrk -t12 -c200 -d30s http://localhost:8085/template
+Running 30s test @ http://localhost:8085/template
+  12 threads and 200 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    68.05ms   72.74ms 897.49ms   91.54%
+    Req/Sec   281.00    140.21     1.94k    73.56%
+  99063 requests in 30.07s, 285.31MB read
+  Socket errors: connect 0, read 148, write 0, timeout 0
+Requests/sec:   3294.04
+Transfer/sec:      9.49MB
+
+scala second run
+wrk -t12 -c200 -d30s http://localhost:8085/template
+Running 30s test @ http://localhost:8085/template
+  12 threads and 200 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    42.92ms   43.67ms 760.08ms   88.09%
+    Req/Sec   439.11    304.89     4.41k    87.97%
+  152976 requests in 30.05s, 440.59MB read
+  Socket errors: connect 0, read 35, write 2, timeout 0
+Requests/sec:   5091.17
+Transfer/sec:     14.66MB
+
+third run -> after jit comes into play :)
+wrk -t12 -c200 -d30s http://localhost:8085/template
+Running 30s test @ http://localhost:8085/template
+  12 threads and 200 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    34.08ms   32.44ms 586.33ms   85.02%
+    Req/Sec   539.36    354.58     4.41k    85.83%
+  187142 requests in 30.10s, 538.99MB read
+  Socket errors: connect 0, read 86, write 0, timeout 0
+Requests/sec:   6217.89
+Transfer/sec:     17.91MB
